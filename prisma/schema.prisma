@@ -33,6 +33,7 @@ model Post {
   likedUserEmails      String[]
   bookmarkedUserEmails String[]
   parentId             String?
+  commentIds           String[]
 }
 
 model Comment {

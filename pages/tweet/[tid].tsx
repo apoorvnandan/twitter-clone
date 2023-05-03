@@ -44,11 +44,10 @@ export default function Tweet() {
                 userEmail: session?.user?.email,
                 body: txt,
                 image: base64,
-                parentId: tid
+                parentId: tid,
             })
         })
         if (response.status == 200) {
-            console.log(await response.json())
             setKey(key + 1)
             await getComments()
         } else {

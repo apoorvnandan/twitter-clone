@@ -1,4 +1,5 @@
 import { ArrowLeftOnRectangleIcon, BookmarkIcon, HomeIcon, UserIcon } from "@heroicons/react/24/outline"
+import { HomeIcon as HomeIconSolid, BookmarkIcon as BookmarkIconSolid, UserIcon as UserIconSolid } from "@heroicons/react/24/solid"
 import { signOut, useSession } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -28,15 +29,15 @@ export default function Layout({ children }: LayoutProps) {
                             <div className="w-60 flex flex-col items-center lg:items-start gap-6">
                                 <div className="px-0 lg:px-8"><TwitterSVG /></div>
                                 <Link href="/" className="flex items-center gap-4 px-0 lg:px-8">
-                                    <HomeIcon className="h-6 w-6" />
-                                    <p className="text-lg font-light hidden lg:inline-flex">Home</p>
+                                    {router.pathname == "/" ? <HomeIconSolid className="h-6 w-6" /> : <HomeIcon className="h-6 w-6" />}
+                                    <p className={`text-lg ${router.pathname == "/" ? "font-bold" : "font-light"} hidden lg:inline-flex`}>Home</p>
                                 </Link>
                                 <Link href="/bookmarks" className="flex items-center gap-4 px-0 lg:px-8">
-                                    <BookmarkIcon className="h-6 w-6" />
+                                    {router.pathname == "/bookmarks" ? <BookmarkIconSolid className="h-6 w-6" /> : <BookmarkIcon className="h-6 w-6" />}
                                     <p className="text-lg font-light hidden lg:inline-flex">Bookmarks</p>
                                 </Link>
                                 <Link href="/profile" className="flex items-center gap-4 px-0 lg:px-8">
-                                    <UserIcon className="h-6 w-6" />
+                                    {router.pathname == "/profile" ? <UserIconSolid className="h-6 w-6" /> : <UserIcon className="h-6 w-6" />}
                                     <p className="text-lg font-light hidden lg:inline-flex">Profile</p>
                                 </Link>
                                 <button className="flex items-center gap-4 px-0 lg:px-8" onClick={() => signOut()}>

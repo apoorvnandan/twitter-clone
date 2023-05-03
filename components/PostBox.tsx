@@ -13,6 +13,14 @@ export default function Post({ post, userData, onClick, userEmail }: {
     const [likedEmails, setLikedEmails] = useState<Array<string>>(post.likedUserEmails)
     const [bookmarkedEmails, setBookmarkedEmails] = useState<Array<string>>(post.bookmarkedUserEmails)
 
+    function isLiked() {
+        return likedEmails.includes(userEmail)
+    }
+
+    function isBookmarked() {
+        return bookmarkedEmails.includes(userEmail)
+    }
+
     async function like() {
         let newLikedUserEmails = []
         if (post.likedUserEmails.includes(userEmail)) {
@@ -85,10 +93,10 @@ export default function Post({ post, userData, onClick, userEmail }: {
                 alt='tweet image'
             />}
             <div className='flex gap-12 pt-4'>
-                <button className='flex items-center gap-2 hover:text-blue-500'><ChatBubbleLeftIcon className='h-5 w-5' />{120}</button>
-                <button className='flex items-center gap-2 hover:text-blue-500'><ArrowPathRoundedSquareIcon className='h-5 w-5' />{82}</button>
-                <button onClick={async (e) => { e.stopPropagation(); await like() }} className='flex items-center gap-2 hover:text-blue-500'><HeartIcon className='h-5 w-5' />{likedEmails.length}</button>
-                <button onClick={async (e) => { e.stopPropagation(); await bookmark() }} className='flex items-center gap-2 hover:text-blue-500'><BookmarkIcon className='h-5 w-5' />{bookmarkedEmails.length}</button>
+                <button className='flex items-center gap-2 hover:text-blue-500'><ChatBubbleLeftIcon className='h-5 w-5' />{post.commentIds.length}</button>
+                <button className='flex items-center gap-2 hover:text-blue-500'><ArrowPathRoundedSquareIcon className='h-5 w-5' />{0}</button>
+                <button onClick={async (e) => { e.stopPropagation(); await like() }} className='flex items-center gap-2 hover:text-blue-500'>{isLiked() ? <HeartSolidIcon className="h-5 w-5" /> : <HeartIcon className='h-5 w-5' />}{likedEmails.length}</button>
+                <button onClick={async (e) => { e.stopPropagation(); await bookmark() }} className='flex items-center gap-2 hover:text-blue-500'>{isBookmarked() ? <BookmarkSolidIcon className="h-5 w-5" /> : <BookmarkIcon className='h-5 w-5' />}{bookmarkedEmails.length}</button>
             </div>
         </div>
     </div>

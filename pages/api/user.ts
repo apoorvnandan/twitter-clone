@@ -3,6 +3,13 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/pages/api/auth/[...nextauth]'
 import prisma from "@/lib/prisma";
+export const config = {
+    api: {
+        bodyParser: {
+            sizeLimit: '4mb' // Set desired value here
+        }
+    }
+}
 
 export default async function handler(
     req: NextApiRequest,
@@ -53,15 +60,16 @@ export default async function handler(
                     const user = await prisma.user.create({
                         data: req.body
                     });
+                    res.status(200).json({ msg: "done", user })
                 } else {
-                    const updatedUser = await prisma.user.update({
+                    const user = await prisma.user.update({
                         where: {
                             email: email
                         },
                         data: req.body
                     })
+                    res.status(200).json({ msg: "done", user })
                 }
-                res.status(200).json({ msg: "done" })
                 return
             }
             res.status(200).json({ msg: 'no email sent' })

@@ -8,6 +8,7 @@ export type PostType = {
     bookmarkedUserEmails: string[]
     userEmail: string
     parentId?: string
+    commentIds: string[]
 }
 
 export type UserType = {

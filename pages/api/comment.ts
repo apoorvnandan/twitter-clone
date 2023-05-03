@@ -37,6 +37,26 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
             const comment = await prisma.post.create({
                 data: req.body
             })
+            const parent = await prisma.post.findUnique({
+                where: {
+                    id: comment.parentId as string
+                }
+            })
+            if (parent?.commentIds.includes(comment.id)) {
+
+            } else {
+                if (parent) {
+                    const updatedParent = await prisma.post.update({
+                        where: {
+                            id: comment.parentId as string
+                        },
+                        data: {
+                            commentIds: [...parent.commentIds, comment.id]
+                        }
+                    })
+                }
+
+            }
             res.status(200).json({ msg: "done" })
             return
         }

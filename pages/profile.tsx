@@ -37,14 +37,15 @@ export default function Profile() {
                 },
                 body: JSON.stringify({
                     email: session.user.email,
-                    username,
                     profileImage,
                 })
             })
             if (response.status == 200) {
                 const data = await response.json()
                 if (data.msg == "done") {
+                    setProfileImage(data.user.profileImage)
                     setSending(false)
+                    await getUserTweets()
                     return
                 }
             }
